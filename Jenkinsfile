@@ -1,21 +1,22 @@
 pipeline {
-    agent any 
+    agent {
+    docker { image:  
     stages {
         stage('Prebuild') {
             steps {
-                echo 'prebuild'
+                sh 'npm install'
 	}	
       }   
 
-	stage('Test') {
+	stage('Unit test') {
             steps {
-                echo 'test'
+                sh 'npm run test-unit'
 	}
       }   		      
 
- 	stage('Postbuild') {
+ 	stage('Integration test') {
             steps {
-                echo 'postbuild'
+                sh 'npm run integration-test'
     	}
       }
    } 
