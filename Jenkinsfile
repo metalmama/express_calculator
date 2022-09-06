@@ -1,4 +1,5 @@
-    agent { dockerfile true }
+pipeline { 
+   agent { dockerfile true }
     stages {
         stage('Test') {
             steps {
