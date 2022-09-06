@@ -11,7 +11,7 @@ pipeline {
             }
         }
 	steps {
-		she 'gradle --version'    
+		sh 'gradle --version'    
 }
 }
 }
