@@ -1,25 +1,17 @@
 pipeline {
-    agent any 
+    agent {
+        docker { image 'node:16.13.1-alpine' }
+    }
     stages {
-        stage('Prebuild') {
+        stage('Test') {
             steps {
-                echo 'prebuild'
-	}	
-      }   
-
-	stage('Test') {
-            steps {
-                echo 'test'
-	}
-      }   		      
-
- 	stage('Postbuild') {
-            steps {
-                echo 'postbuild'
-    	}
-      }
-   } 
+                sh 'node --version'
+            }
+        }
+    }
 }
+
+	
 	
 
 	
