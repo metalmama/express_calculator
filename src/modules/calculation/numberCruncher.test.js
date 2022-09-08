@@ -1,5 +1,6 @@
 import numberCruncher from "../../modules/calculation/numberCruncher.js"
 
+
 describe('numberCruncher unit tests', () => {
 
   it('should return 9 when adding 2 and 7', () => {
