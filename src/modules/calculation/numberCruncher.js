@@ -2,6 +2,8 @@ import percentage from './util/percentage.js'
 import exp from './util/exp.js'
 import gcd from './util/gcd.js'
 
+// { "num1": 2, "operator": "add", "num2": 7 }
+
 const numberCruncher = (calc) => {
   const x = parseInt(calc.numOne);
   const y = parseInt(calc.numTwo);
