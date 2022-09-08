@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "start": "node app.js",
-    "test": "./node_modules/.bin/jest",
+    "test-all": "./node_modules/.bin/jest",
     "test-unit": "./node_modules/.bin/jest  src/__tests__/unit",
     "test-integration": "./node_modules/.bin/jest src/__tests__/integration"
   },
