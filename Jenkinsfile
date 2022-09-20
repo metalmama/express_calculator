@@ -3,20 +3,30 @@ pipeline {
     stages {
         stage('Prebuild') {
             steps {
-		sh  'npm install'
+                sh  'npm install'
          }
-	}		
-      
+        }
+
         stage('Unit test') {
+            when {
+            blsranch 'feature/*'
+            }
+            
             steps {
-		sh 'npm run test-unit'
-         }	
-	}	
-      
+                sh 'npm run test-unit'
+         }
+        }
+
         stage('Integration test') {
-            steps { 
-		sh 'npm run test-integration'    
-       	 }
-    	}			   
+            when {
+            anyOf {
+            branch 'develop';
+            branch 'main'}
+                   }
+            steps {
+                sh 'npm run test-integration'
+         }
+        }
   }
 }
+
