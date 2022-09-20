@@ -1,0 +1,11 @@
+Notes - inlämningsuppgift
+
+1. Skapa multibranch pipeline
+2. Skapa 3 brancher (main, develop, feature/jenkins.config)
+3. Pusha brancherna till Github
+4. Hoppa till feature /jenkins-config och lägg till directives i Jenkinsfile
+5. Pusha till github (feature/jenkins-config med ny Jenkinsfile)
+6. Merga in feature/jenkins-config i developo och pusha
+7. Scan mutibranch 
+8. Merga in develop i main 
+9. Scan multibranch 
