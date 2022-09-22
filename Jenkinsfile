@@ -9,7 +9,7 @@ pipeline {
 
         stage('Unit test') {
             when {
-            blsranch 'feature/*'
+           	 branch 'feature/*'
             }
             
             steps {
@@ -19,14 +19,14 @@ pipeline {
 
         stage('Integration test') {
             when {
-            anyOf {
-            branch 'develop';
-            branch 'main'}
-                   }
-            steps {
+            	anyOf {
+           		branch 'develop';
+            		branch 'main'
+		}
+          }		
+          steps {
                 sh 'npm run test-integration'
-         }
-        }
-  }
-}
-
+         }     
+	} 
+ }	
+}	
