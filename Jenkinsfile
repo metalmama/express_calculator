@@ -3,6 +3,7 @@ pipeline {
 	stages {
         stage('Prebuild') {
             	steps {
+					
                 sh  'npm install'
          }
         }
@@ -14,16 +15,15 @@ pipeline {
         }
 
         stage('Integration test') {
-		when {
+			when {
 			anyOf {
 			branch 'develop';
 			branch 'main'
-		}
-	}
-
-		steps {
+			}	
+			}
+			steps {
                 sh 'npm run test-integration'
-
+				}
 	}
 	stage ('Deploy') {
 		when {
@@ -37,5 +37,4 @@ pipeline {
 			}
 		}
 	}
-}
 }
