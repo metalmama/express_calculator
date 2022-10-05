@@ -1,8 +1,8 @@
 pipeline {
-    agent any
-    stages {
+	agent any
+	stages {
         stage('Prebuild') {
-            steps {
+            	steps {
                 sh  'npm install'
          }
         }
@@ -14,16 +14,16 @@ pipeline {
         }
 
         stage('Integration test') {
-        when {
-                anyOf {
-                branch 'develop'
-                branch 'main'
-	 }
-        }        
-        steps { 
+		when {
+			anyOf {
+			branch 'develop';
+			branch 'main'
+		}
+	}
+
+		steps {
                 sh 'npm run test-integration'
-        }
-        }
-   }
- }
-~    
+	}
+     }
+}
+}
