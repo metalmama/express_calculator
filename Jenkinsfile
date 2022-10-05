@@ -23,7 +23,18 @@ pipeline {
 
 		steps {
                 sh 'npm run test-integration'
+
 	}
-     }
-}
+	stage ('Deploy') {
+		when {
+                        anyOf {
+                        branch 'develop';
+                 	branch 'main'
+		 }
+		}
+		steps { 
+		echo "there you have it"
+			}
+		}
+	}
 }
