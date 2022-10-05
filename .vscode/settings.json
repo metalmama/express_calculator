@@ -1,0 +1,4 @@
+{
+    "jenkins.url": "http://localhost:8080",
+    "jenkins.pipeline.linter.connector.crumbUrl": "http://localhost:8080/pipeline-model-converter/validate."
+}
