@@ -63,7 +63,6 @@ pipeline{
         		branch 'main'	
 			}
 			steps {
-				sh 'npm run deploy'
 			echo "========executing Deploy========"
 			}
 			post {
