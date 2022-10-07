@@ -1,20 +1,20 @@
-FROM node:14
+FROM node: 14.15.4-alpine3.12
 
-# skapa mapp för projektet
+# Create app directory
 
 WORKDIR /usr/src/app
 
-# installera paket
+# Install app dependencies
 
 COPY package*.json ./
 
-# installera dependencies (ej devDep)
+# Install app dependencies (not devDependencies)
 
-RUN npm install --only=prod
+RUN npm install --only=production
 
-# bundle app source
+# Bundle app source
+
 COPY . .
 
 EXPOSE 3000
 CMD [ "node", "app.js" ]
-
