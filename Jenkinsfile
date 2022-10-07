@@ -1,6 +1,6 @@
-pipeline{
+pipeline {
 	agent any
-	stages{
+	stages {
 		stage("Prebuild"){
 			steps{
 				sh  'npm install'
@@ -8,7 +8,7 @@ pipeline{
 				}
 			post{
 				always{
-					echo "========always========"
+					echo "========Prebuild executed? ========"
 				}
 				success{
 					echo "========Prebuild executed successfully========"
@@ -18,6 +18,7 @@ pipeline{
 				}
 			}
 		}
+		
 		stage('Unit test') {
         	steps {
         	sh 'npm run test-unit'
@@ -25,7 +26,7 @@ pipeline{
 			}	
 			post {
 				always {
-					echo "========always========"
+					echo "========Unit test executed?========"
 				}
 				success {
 					echo "========Unit test executed successfully========"
@@ -35,7 +36,8 @@ pipeline{
 				}
 			}
 		}	
-        stage('Integration test') {
+        
+		stage('Integration test') {
 			when {
 				anyOf {
 				branch 'develop';
@@ -48,7 +50,7 @@ pipeline{
 				}
 				post {
 				always {
-					echo "========always========"
+					echo "========Integration executed?========"
 				}
 				success {
 					echo "========Integration Test executed successfully========"
@@ -58,24 +60,31 @@ pipeline{
 				}
 			}
 		}
-		stage ('Deploy') {
-			when {	
-        		branch 'main'	
-			}
-			steps {
-			echo "========executing Deploy========"
-			}
-			post {
-				always {
-					echo "========always========"
+		
+		stage ('Delivery') {
+			when {
+				branch 'main'
+				}	
+			docker.withRegistry('https://registry.hub.docker.com', 'dockerhub') {   
+				def image = docker.build("metalama/express-calculator-cicd-coursework")
+				image.push()
+			}	
+			steps{	
+					echo "========executing Delivery========"
 				}
-				success {
-					echo "========Deploy executed successfully========"
-				}
-				failure {
-					echo "========Deploy execution failed========"
-				}
+			
+				post {
+					always {
+						echo "========Delivery executed?========"
+					}
+					success {
+						echo "========Delivery executed successfully========"
+					}
+					failure {
+						echo "========Delivery execution failed========"
+					}
+				}	
 			}
 		}
 	}
-}
+
