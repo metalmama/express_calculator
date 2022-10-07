@@ -18,7 +18,7 @@ pipeline {
 				}
 			}
 		}
-		
+
 		stage('Unit test') {
         	steps {
         	sh 'npm run test-unit'
@@ -36,43 +36,38 @@ pipeline {
 				}
 			}
 		}	
-        
-		stage('Integration test') {
+        stage('Integration test') {
 			when {
 				anyOf {
 				branch 'develop';
 				branch 'main'
 				}
-			}	
 			steps {
-        		sh 'npm run test-integration'
-				echo "========executing Integration Test========"
-				}
+			sh 'npm run test-integration'
+			echo "========executing Integration Test========"
+			}
 				post {
-				always {
+					always {
 					echo "========Integration executed?========"
 				}
-				success {
+					success {
 					echo "========Integration Test executed successfully========"
 				}
-				failure {
+					failure {
 					echo "========Integration Test execution failed========"
 				}
 			}
-		}
-		
-		stage ('Delivery') {
+		stage('Delivery') {
 			when {
 				branch 'main'
-				}	
-			docker.withRegistry('https://registry.hub.docker.com', 'dockerhub') {   
-				def image = docker.build("metalama/express-calculator-cicd-coursework")
-				image.push()
-			}	
-			steps{	
-					echo "========executing Delivery========"
 				}
-			
+			steps {
+				docker.withRegistry('https://registry.hub.docker.com', 'dockerhub') {   
+				def image = docker.build("metalama/express-calculator-cicd-coursework")
+				image.push()	
+				echo "========executing Delivery========"
+				}
+			}		
 				post {
 					always {
 						echo "========Delivery executed?========"
@@ -83,8 +78,12 @@ pipeline {
 					failure {
 						echo "========Delivery execution failed========"
 					}
-				}	
+				}
 			}
 		}
 	}
+}
+
+
+
 
