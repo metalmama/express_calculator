@@ -77,6 +77,7 @@ pipeline {
 					}
 					failure {
 						echo "========Delivery execution failed========"
+						}
 					}
 				}
 			}
