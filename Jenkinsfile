@@ -1,6 +1,6 @@
-pipeline{
+pipeline {
 	agent any
-	stages{
+	stages {
 		stage("Prebuild"){
 			steps{
 				sh  'npm install'
@@ -8,7 +8,7 @@ pipeline{
 				}
 			post{
 				always{
-					echo "========always========"
+					echo "========Prebuild executed? ========"
 				}
 				success{
 					echo "========Prebuild executed successfully========"
@@ -18,6 +18,7 @@ pipeline{
 				}
 			}
 		}
+
 		stage('Unit test') {
         	steps {
         	sh 'npm run test-unit'
@@ -25,7 +26,7 @@ pipeline{
 			}	
 			post {
 				always {
-					echo "========always========"
+					echo "========Unit test executed?========"
 				}
 				success {
 					echo "========Unit test executed successfully========"
@@ -41,39 +42,43 @@ pipeline{
 				branch 'develop';
 				branch 'main'
 				}
-			}	
 			steps {
-        		sh 'npm run test-integration'
-				echo "========executing Integration Test========"
-				}
+			sh 'npm run test-integration'
+			echo "========executing Integration Test========"
+			}
 				post {
-				always {
-					echo "========always========"
+					always {
+					echo "========Integration executed?========"
 				}
-				success {
+					success {
 					echo "========Integration Test executed successfully========"
 				}
-				failure {
+					failure {
 					echo "========Integration Test execution failed========"
 				}
 			}
-		}
-		stage ('Deploy') {
-			when {	
-        		branch 'main'	
-			}
+		stage('Delivery') {
+			when {
+				branch 'main'
+				}
 			steps {
-			echo "========executing Deploy========"
-			}
-			post {
-				always {
-					echo "========always========"
+				docker.withRegistry('https://registry.hub.docker.com', 'dockerhub') {   
+				def image = docker.build("metalama/express-calculator-cicd-coursework")
+				image.push()	
+				echo "========executing Delivery========"
 				}
-				success {
-					echo "========Deploy executed successfully========"
-				}
-				failure {
-					echo "========Deploy execution failed========"
+			}		
+				post {
+					always {
+						echo "========Delivery executed?========"
+					}
+					success {
+						echo "========Delivery executed successfully========"
+					}
+					failure {
+						echo "========Delivery execution failed========"
+						}
+					}
 				}
 			}
 		}
