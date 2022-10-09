@@ -26,10 +26,13 @@ pipeline {
 			when {
 				branch 'main'
 			}
-			docker.withRegistry('https://registry.hub.docker.com', 'dockerhub') {
+			steps {
+				docker.withRegistry('https://registry.hub.docker.com', 'dockerhub') {
 				def im = docker.build("dockerhub/username/image:latest")
-				im.push()
-			}	
+				im.push(
+					}	
+				}
+			}
 		}
 	}
 }	
