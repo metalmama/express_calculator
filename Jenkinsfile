@@ -28,8 +28,8 @@ pipeline {
 			}
 			steps {
 				script {
-					docker.withRegistry('https://registry.hub.docker.com', 'dockerhub'){
-					def im = docker.build("dockerhub/metalmama/express-calculator:latest")
+					docker.withRegistry('https://registry.hub.docker.com', 'docker_id'){
+					def im = docker.build("metalmama/express-calculator")
 					im.push()
 						}	
 					}	
